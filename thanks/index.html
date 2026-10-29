@@ -14,6 +14,7 @@
 <style>
 /* One narrow phone-first column: tape-measure strip, thank-you, one big review button, then every service. */
 :root{
+  --ico-bg:#FFF1EA;
   --bg:#F6F7F8; --surface:#FFFFFF; --ink:#1E2730; --muted:#5B6672; --line:#DCE1E6;
   --brand:#FF6726; --brand-ink:#1B1210; --tape:#E8B21E;
   --display:"Archivo","Arial Narrow",Arial,sans-serif;
@@ -21,7 +22,7 @@
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){:root{
-  --bg:#12171C; --surface:#1A2129; --ink:#EDF1F4; --muted:#A3AEB9; --line:#2C3640; --tape:#D9A31A; color-scheme:dark }}
+  --bg:#12171C; --surface:#1A2129; --ink:#EDF1F4; --muted:#A3AEB9; --line:#2C3640; --tape:#D9A31A; --ico-bg:#2A1E18; color-scheme:dark }}
 *{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5;
@@ -49,11 +50,25 @@ h1{font-family:var(--display);font-weight:800;font-size:clamp(32px,9vw,42px);lin
 .btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .stars{letter-spacing:4px;font-size:17px;line-height:1}
 .note{margin:0;font-size:14px;color:var(--muted);text-align:center}
-.services{display:flex;flex-direction:column;gap:12px;padding-top:24px;border-top:1px solid var(--line)}
+.services{display:flex;flex-direction:column;gap:16px;padding-top:24px;border-top:1px solid var(--line)}
+.services-head{display:flex;flex-direction:column;gap:2px}
+.services-sub{margin:0;font-size:15px;color:var(--muted)}
 .label{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
 h2{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.15;margin:0}
-.svc{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-.svc li{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-weight:600;font-size:15px;line-height:1.3}
+/* Service cards: quiet surfaces so the orange review button stays the strongest element. */
+.svc{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:10px}
+.svc li{display:grid;grid-template-columns:44px 1fr;column-gap:14px;align-items:start;min-width:0;
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.svc .ico{width:44px;aspect-ratio:1/1;border-radius:10px;display:grid;place-items:center;
+  background:var(--ico-bg);color:var(--brand)}
+.svc .ico svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.svc h3{margin:1px 0 2px;font-family:var(--display);font-weight:700;font-size:16px;line-height:1.25;letter-spacing:.005em}
+.svc p{margin:0;font-size:14px;line-height:1.4;color:var(--muted)}
+@media (min-width:560px){
+  .svc{grid-template-columns:1fr 1fr;gap:12px}
+  .svc li{grid-template-columns:1fr;row-gap:12px;align-content:start;padding:16px}
+  .svc h3{margin:0 0 2px}
+}
 .area{margin:0;font-size:15px;color:var(--muted)}
 footer{display:flex;flex-direction:column;gap:4px;font-size:15px;padding-top:20px;border-top:1px solid var(--line)}
 footer a{color:var(--ink);font-weight:600;text-decoration-color:var(--brand);text-underline-offset:3px}
@@ -87,11 +102,17 @@ footer small{color:var(--muted);font-size:13px}
   </section>
 
   <section class="services">
-    <h2>Need anything else?</h2>
+    <div class="services-head">
+      <h2>Need anything else?</h2>
+      <p class="services-sub">We&rsquo;re here for the next project too.</p>
+    </div>
     <ul class="svc">
-      <li>Kitchen remodels</li><li>Bathroom remodels</li><li>Whole-home renovations</li>
-      <li>Co-op &amp; condo renovations</li><li>Commercial renovations</li><li>Rental turnovers</li>
-      <li>Drywall</li><li>Painting</li><li>Flooring</li><li>Fixture installs</li><li>Repairs &amp; service calls</li>
+      <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M4 9h16M8 6h.01M12 6h.01M16 6h.01M9 13h6"/></svg></span><div><h3>Kitchen Remodeling</h3><p>Cabinetry, tile, fixtures and full kitchen renovations.</p></div></li>
+      <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12h18v2a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5v-2Z"/><path d="M6 12V6a2 2 0 0 1 3.5-1.3M7 19l-1 2M17 19l1 2"/></svg></span><div><h3>Bathroom Remodeling</h3><p>Tile, showers, vanities, fixtures and full bathroom renovations.</p></div></li>
+      <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg></span><div><h3>Full Renovations</h3><p>Apartment, home and multi-room renovation projects.</p></div></li>
+      <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="14" height="5" rx="1"/><path d="M17 6.5h2.5V12H11v3"/><rect x="9.5" y="15" width="3" height="6" rx="1"/></svg></span><div><h3>Flooring &amp; Painting</h3><p>Flooring installation, drywall, painting and finish work.</p></div></li>
+      <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 21V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v16M15 9h4a1 1 0 0 1 1 1v11M2 21h20"/><path d="M8 8h3M8 12h3M8 16h3"/></svg></span><div><h3>Commercial &amp; Rental Turnovers</h3><p>Commercial spaces, rental units and investor turnovers.</p></div></li>
+      <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0 5 5L21 13l-8 8-3-3 8-8M14.7 6.3 13 4.6a4 4 0 0 0-5.6 5.6l1.7 1.7"/><path d="m3 21 6.5-6.5"/></svg></span><div><h3>Repairs &amp; Service Calls</h3><p>Repairs, fixture installs, punch-list work and smaller jobs.</p></div></li>
     </ul>
     <p class="area">Serving Connecticut, Westchester and New York City.</p>
   </section>
